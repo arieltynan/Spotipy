@@ -24,16 +24,16 @@ popularity = []
 track_id = []
 
 for i in range(0,10,10):
-    track_results = sp.search(q='year:2022', type='track', limit=10,offset=i)
-    for i, t in enumerate(track_results['tracks']['items']):
+    album_results = sp.search(q='year:2021 genre:indie genre:alt genre:rock', type='album', limit=10,offset=i)
+    for i, t in enumerate(album_results['albums']['items']):
         artist_name.append(t['artists'][0]['name'])
-        track_name.append(t['name'])
+        album_name.append(t['name'])
         track_id.append(t['id'])
         popularity.append(t['popularity'])
 
 
 track_dataframe = pd.DataFrame({'artist_name' : artist_name, 'track_name' : track_name, 'track_id' : track_id, 'popularity' : popularity})
-#print(track_dataframe.shape)
+print(track_dataframe)
 track_dataframe.head()
 
 #print(track_dataframe)
@@ -69,12 +69,12 @@ auth_response = requests.post(TOKEN_URL, data = data)
 ## END GET ACCESS TOKEN ##
 
 ## With access token ##
-from spotipy.oauth2 import SpotifyOAuth
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
-results = sp.current_user_saved_tracks()
-for idx, item in enumerate(results['items']):
-    track = item['track']
-    print(idx, track['artists'][0]['name'], " – ", track['name'])
+#from spotipy.oauth2 import SpotifyOAuth
+#sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+#results = sp.current_user_saved_tracks()
+#for idx, item in enumerate(results['items']):
+#    track = item['track']
+#    print(idx, track['artists'][0]['name'], " – ", track['name'])
 
 
 
